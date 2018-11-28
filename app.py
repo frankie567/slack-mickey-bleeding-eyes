@@ -5,7 +5,7 @@ import os
 
 SLACK_SIGNING_SECRET = os.environ['SLACK_SIGNING_SECRET']
 
-application = Flask(__name__)
+app = Flask(__name__)
 
 def verify_signature(timestamp, signature):
     req = str.encode('v0:' + str(timestamp) + ':') + request.data
@@ -16,7 +16,7 @@ def verify_signature(timestamp, signature):
 
     return hmac.compare_digest(request_hash, signature)
 
-@application.route('/', methods=['POST'])
+@app.route('/', methods=['POST'])
 def mickey_bleeding_eyes_command():
     req_timestamp = request.headers.get('X-Slack-Request-Timestamp')
     req_signature = request.headers.get('X-Slack-Signature')
@@ -26,4 +26,4 @@ def mickey_bleeding_eyes_command():
     return 'https://media1.tenor.com/images/1f23440dadb7f1d30749d0f41706bd48/tenor.gif?itemid=9801173', 200
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')
