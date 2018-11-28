@@ -15,7 +15,7 @@ def verify_signature(timestamp, signature, data):
         req, hashlib.sha256
     ).hexdigest()
 
-    app.logger.debug('request.data=%s', request.data)
+    app.logger.debug('data=%s', data)
     app.logger.debug('request_hash=%s', request_hash)
 
     return hmac.compare_digest(request_hash, signature)
@@ -25,7 +25,7 @@ def mickey_bleeding_eyes_command():
     req_timestamp = request.headers.get('X-Slack-Request-Timestamp')
     req_signature = request.headers.get('X-Slack-Signature')
     app.logger.debug('Request: X-Slack-Request-Timestamp=%s X-Slack-Signature=%s', req_timestamp, req_signature)
-    if req_timestamp is None or req_signature is None or not verify_signature(req_timestamp, req_signature, request.data):
+    if req_timestamp is None or req_signature is None or not verify_signature(req_timestamp, req_signature, request.get_data()):
         return abort(401)
 
     return 'https://media1.tenor.com/images/1f23440dadb7f1d30749d0f41706bd48/tenor.gif?itemid=9801173', 200
