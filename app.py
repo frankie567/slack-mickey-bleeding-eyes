@@ -28,7 +28,7 @@ def mickey_bleeding_eyes_command():
     if req_timestamp is None or req_signature is None or not verify_signature(req_timestamp, req_signature, request.get_data()):
         return abort(401)
 
-    return 'https://media1.tenor.com/images/1f23440dadb7f1d30749d0f41706bd48/tenor.gif?itemid=9801173', 200
+    return 'https://i.pinimg.com/originals/ab/c5/02/abc50276a99daa149a51119912de6c70.png', 200
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
