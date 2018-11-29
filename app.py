@@ -29,6 +29,8 @@ def mickey_bleeding_eyes_command():
         return abort(401)
 
     response = {
+        'response_type': 'in_channel',
+        'as_user': True,
         'text': 'https://slack-mickey-bleeding-eyes.herokuapp.com/image',
         'attachments': [
             {
