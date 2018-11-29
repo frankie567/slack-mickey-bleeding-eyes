@@ -30,13 +30,7 @@ def mickey_bleeding_eyes_command():
 
     response = {
         'response_type': 'in_channel',
-        'as_user': True,
         'text': 'https://slack-mickey-bleeding-eyes.herokuapp.com/image',
-        'attachments': [
-            {
-                'image_url': 'https://slack-mickey-bleeding-eyes.herokuapp.com/image'
-            }
-        ]
     }
 
     return jsonify(response), 200
