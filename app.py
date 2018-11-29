@@ -1,4 +1,4 @@
-from flask import abort, Flask, request
+from flask import abort, Flask, jsonify, request
 import hashlib
 import hmac
 import logging
@@ -25,10 +25,13 @@ def mickey_bleeding_eyes_command():
     req_timestamp = request.headers.get('X-Slack-Request-Timestamp')
     req_signature = request.headers.get('X-Slack-Signature')
     app.logger.debug('Request: X-Slack-Request-Timestamp=%s X-Slack-Signature=%s', req_timestamp, req_signature)
-    if req_timestamp is None or req_signature is None or not verify_signature(req_timestamp, req_signature, request.get_data()):
-        return abort(401)
+    #if req_timestamp is None or req_signature is None or not verify_signature(req_timestamp, req_signature, request.get_data()):
+        #return abort(401)
 
-    return 'https://i.pinimg.com/originals/ab/c5/02/abc50276a99daa149a51119912de6c70.png', 200
+    return jsonify(
+        text='https://i.pinimg.com/originals/ab/c5/02/abc50276a99daa149a51119912de6c70.png',
+        as_user=True
+    ), 200
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
